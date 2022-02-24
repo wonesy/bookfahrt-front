@@ -7,7 +7,7 @@ import { xformLoginResponse } from './transforms'
 export const apiService = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: '/',
+        baseUrl: 'http://localhost:4000/',
     }),
     tagTypes: ['Auth'],
     endpoints: (build) => ({
