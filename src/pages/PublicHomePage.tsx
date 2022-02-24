@@ -1,5 +1,12 @@
+import { LoginForm } from '../components/LoginForm'
+
 export function PublicHomePage() {
-    return(
-        <div>Public home page</div>
+    return (
+        <>
+            <h2>Public home page</h2>
+            <section>
+                <LoginForm />
+            </section>
+        </>
     )
 }
