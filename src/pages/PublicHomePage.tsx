@@ -1,12 +1,23 @@
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Button, Grid, Tab } from 'semantic-ui-react'
 import { LoginForm } from '../components/LoginForm'
 import { RegistrationForm } from '../components/RegistrationForm'
 
 export function PublicHomePage() {
-    let [searchParams, setSearchParams] = useSearchParams()
+    let [searchParams] = useSearchParams()
+    const [invitation, setInvitation] = useState<string | null>(null)
+    const [activeIndex, setActiveIndex] = useState<string | number | undefined>(
+        0
+    )
 
-    const invitation = searchParams.get('invitation')
+    useEffect(() => {
+        const inv = searchParams.get('invitation')
+        setInvitation(inv)
+        if (inv) {
+            setActiveIndex(1)
+        }
+    }, [searchParams, setActiveIndex, setInvitation])
 
     const panes = [
         {
@@ -34,7 +45,13 @@ export function PublicHomePage() {
         >
             <Grid.Column style={{ maxWidth: 550 }}>
                 <section>
-                    <Tab panes={panes} activeIndex={invitation ? 1 : 0} />
+                    <Tab
+                        panes={panes}
+                        activeIndex={activeIndex}
+                        onTabChange={(e, { activeIndex }) =>
+                            setActiveIndex(activeIndex)
+                        }
+                    />
                 </section>
             </Grid.Column>
         </Grid>
