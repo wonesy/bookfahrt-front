@@ -40,47 +40,38 @@ export function LoginForm() {
     }
 
     return (
-        <Grid
-            textAlign="center"
-            style={{ height: '100vh' }}
-            verticalAlign="middle"
-        >
-            <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as="h2" color="teal" textAlign="center">
-                    Log in to your account
-                </Header>
-                <Form size="large">
-                    <Segment stacked>
-                        <Form.Input
-                            fluid
-                            icon="user"
-                            iconPosition="left"
-                            placeholder="Enter username"
-                            onChange={handlePasswordChange}
-                        />
-                        <Form.Input
-                            fluid
-                            icon="lock"
-                            iconPosition="left"
-                            placeholder="Enter password"
-                            type="password"
-                            onChange={handleUsernameChange}
-                        />
+        <>
+            <Header as="h2" color="teal" textAlign="center">
+                Log in to your account
+            </Header>
+            <Form size="large">
+                <Segment stacked>
+                    <Form.Input
+                        fluid
+                        icon="user"
+                        iconPosition="left"
+                        placeholder="Enter username"
+                        onChange={handleUsernameChange}
+                    />
+                    <Form.Input
+                        fluid
+                        icon="lock"
+                        iconPosition="left"
+                        placeholder="Enter password"
+                        type="password"
+                        onChange={handlePasswordChange}
+                    />
 
-                        <Button
-                            color="teal"
-                            fluid
-                            size="large"
-                            onClick={handleSubmit}
-                        >
-                            Login
-                        </Button>
-                    </Segment>
-                </Form>
-                <Message>
-                    New to us? <a href="#">Sign Up</a>
-                </Message>
-            </Grid.Column>
-        </Grid>
+                    <Button
+                        color="teal"
+                        fluid
+                        size="large"
+                        onClick={handleSubmit}
+                    >
+                        Login
+                    </Button>
+                </Segment>
+            </Form>
+        </>
     )
 }

@@ -12,6 +12,16 @@ export const apiService = createApi({
     tagTypes: ['Auth'],
     endpoints: (build) => ({
         // auth
+        register: build.mutation<User, User & { password: string }>({
+            query: (newUser) => ({
+                url: 'auth/register',
+                method: 'POST',
+                body: newUser,
+            }),
+            transformResponse: (response: LoginResponse) =>
+                xformLoginResponse(response),
+            invalidatesTags: ['Auth'],
+        }),
         login: build.mutation<User, Credentials>({
             query: (credentials) => ({
                 url: 'auth/login',
@@ -32,5 +42,6 @@ export const apiService = createApi({
     }),
 })
 
-export const { useLoginMutation, useLogoutMutation } = apiService
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation } =
+    apiService
 export const apiReducer = apiService.reducer
