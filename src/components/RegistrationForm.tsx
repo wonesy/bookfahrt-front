@@ -1,16 +1,7 @@
-import React, { useMemo, useReducer } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import {
-    Button,
-    Form,
-    Grid,
-    Header,
-    Image,
-    Message,
-    Segment,
-} from 'semantic-ui-react'
-import styled from 'styled-components'
+import React, { useEffect, useMemo, useReducer } from 'react'
+import { Button, Form } from 'semantic-ui-react'
 import { useRegisterMutation } from '../services/apiService'
+import { useAuth } from '../state/auth/hooks/useAuth'
 import { Flex, FlexItem } from './flex'
 
 type RegistrationState = {
@@ -37,10 +28,7 @@ type RegistrationAction = {
     payload: string | undefined
 }
 
-function registrationReducer(
-    state: RegistrationState,
-    action: RegistrationAction
-) {
+function registrationReducer(state: RegistrationState, action: RegistrationAction) {
     switch (action.type) {
         case 'UPDATE_USERNAME':
             let uerr = state.usernameErrorMessage
@@ -77,13 +65,7 @@ function registrationReducer(
     }
 }
 
-function FormItemLabel({
-    label,
-    required,
-}: {
-    label: string
-    required?: boolean
-}) {
+export function FormItemLabel({ label, required }: { label: string; required?: boolean }) {
     return (
         <FlexItem shrink={1}>
             <label
@@ -92,13 +74,12 @@ function FormItemLabel({
                     minWidth: '100px',
                     paddingRight: '10px',
                     display: 'inline-block',
+                    textAlign: 'left',
                 }}
             >
                 {label}
 
-                {required ? (
-                    <span style={{ color: 'red', paddingLeft: '5px' }}>*</span>
-                ) : null}
+                {required ? <span style={{ color: 'red', paddingLeft: '5px' }}>*</span> : null}
             </label>
         </FlexItem>
     )
@@ -161,9 +142,6 @@ export function RegistrationForm({ invitation }: RegistrationFormProps) {
 
     return (
         <>
-            <Header as="h2" color="teal" textAlign="center">
-                Register
-            </Header>
             <Form size="large">
                 <Form.Field>
                     <Flex>

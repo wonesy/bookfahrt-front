@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { apiService } from '../../services/apiService'
 import { User } from '../user/@types'
 
 export type AuthState = {
@@ -19,6 +20,17 @@ export const authSlice = createSlice({
         deleteUser(state) {
             state = initialState
         },
+    },
+    extraReducers: (builder) => {
+        builder.addMatcher(apiService.endpoints.login.matchFulfilled, (state, { payload }) => {
+            state.user = payload
+        }),
+            builder.addMatcher(apiService.endpoints.register.matchFulfilled, (state, { payload }) => {
+                state.user = payload
+            }),
+            builder.addMatcher(apiService.endpoints.logout.matchFulfilled, (state, { payload }) => {
+                state.user = undefined
+            })
     },
 })
 
