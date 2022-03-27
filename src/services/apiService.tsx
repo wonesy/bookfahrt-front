@@ -8,6 +8,7 @@ export const apiService = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:4000/',
+        credentials: 'include',
     }),
     tagTypes: ['Auth'],
     endpoints: (build) => ({
@@ -18,8 +19,7 @@ export const apiService = createApi({
                 method: 'POST',
                 body: newUser,
             }),
-            transformResponse: (response: LoginResponse) =>
-                xformLoginResponse(response),
+            transformResponse: (response: LoginResponse) => xformLoginResponse(response),
             invalidatesTags: ['Auth'],
         }),
         login: build.mutation<User, Credentials>({
@@ -28,8 +28,7 @@ export const apiService = createApi({
                 method: 'POST',
                 body: credentials,
             }),
-            transformResponse: (response: LoginResponse) =>
-                xformLoginResponse(response),
+            transformResponse: (response: LoginResponse) => xformLoginResponse(response),
             invalidatesTags: ['Auth'],
         }),
         logout: build.mutation<void, string>({
@@ -42,6 +41,5 @@ export const apiService = createApi({
     }),
 })
 
-export const { useLoginMutation, useLogoutMutation, useRegisterMutation } =
-    apiService
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation } = apiService
 export const apiReducer = apiService.reducer
